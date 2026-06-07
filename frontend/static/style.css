@@ -1,0 +1,329 @@
+body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Lora', serif;
+    /* point directly to the image filename without quotation marks */
+    background: url('background.jpeg') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #ffd700;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+.container {
+    position: relative;
+    z-index: 2;
+    width: 90%;
+    max-width: 750px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 30px 40px;
+    background: rgba(20, 20, 25, 0.6);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+}
+
+.subtitle { font-family: 'Cinzel'; font-size: 11px; letter-spacing: 4px; color: #ffcc33; margin-bottom: 5px; }
+h1 { font-family: 'Cinzel'; font-size: 26px; color: #fff; margin-bottom: 20px; }
+label { display: block; font-family: 'Cinzel'; font-size: 11px; margin: 15px 0 10px; }
+
+.option-group { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+
+.option {
+    flex: 1;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #fff;
+    font-size: 13px;
+}
+
+/* This makes the clicked button turn yellow */
+.option.selected {
+    border: 2px solid #ffd700 !important;
+    background: rgba(255, 215, 0, 0.2) !important;
+    color: #ffd700;
+}
+
+.generate-btn {
+    width: 100%;
+    padding: 15px;
+    margin-top: 25px;
+    background: linear-gradient(45deg, #b8860b, #ffd700);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Cinzel';
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- MULTI-PAGE CONTROLS --- */
+.page {
+    display: none; /* Hide pages by default */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.page.active {
+    display: block; /* Show the active page */
+    opacity: 1;
+}
+
+.back-btn {
+    margin-top: 20px;
+    background: transparent;
+    border: 1px solid #ffd700;
+    color: #ffd700;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: rgba(255, 215, 0, 0.1);
+}
+
+/* --- MUSIC FLOATING TOGGLE --- */
+#music-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10;
+    background: rgba(20, 20, 25, 0.7);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    color: #ffd700;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+    transition: 0.3s;
+}
+
+#music-toggle:hover {
+    background: #ffd700;
+    color: #000;
+}
+
+/* --- TEXT ON TOP OF IMAGE DESIGN (Movie Poster Layout) --- */
+.output-box {
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    min-height: 380px; /* Gives space while loading */
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+#story-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* This darkens the story image slightly so the text remains easy to read */
+.output-box::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.9) 80%);
+    z-index: 1;
+}
+
+#story-display {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 25px;
+    margin: 0;
+    z-index: 2; /* Forces text above the background gradient and image */
+    line-height: 1.5;
+    color: #fff;
+    font-size: 14px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 1), -1px -1px 2px rgba(0,0,0,0.5); /* Adds a sharp drop shadow to letters */
+    text-align: center;
+}
+/* STORY HISTORY DISPLAY */
+
+#history-display {
+
+    width: 100%;
+
+    padding: 20px;
+
+    color: #ffd700;
+
+    white-space: pre-wrap;
+
+    text-align: left;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    line-height: 1.8;
+
+    overflow-y: auto;
+
+    max-height: 450px;
+
+    text-shadow: 2px 2px 5px black;
+}
+
+.history-box {
+ width: 100%;
+
+    min-height: 500px;
+
+    max-height: 500px;
+
+    overflow-y: auto;
+
+    padding: 20px;
+
+    background: rgba(20, 20, 25, 0.7);
+
+    border: 1px solid rgba(255, 215, 0, 0.3);
+
+    border-radius: 12px;
+
+    box-sizing: border-box;
+
+    margin-top: 15px;
+}
+/* ==========================================================================
+   DYNAMIC HISTORY ARCHIVE MOVIE-POSTER CARD ELEMENTS
+   ========================================================================== */
+
+.archive-btn {
+    background: transparent !important;
+    border: 1px solid rgba(255, 215, 0, 0.4) !important;
+    color: #ffcc33 !important;
+    margin-top: 10px;
+}
+
+.archive-btn:hover {
+    background: rgba(255, 215, 0, 0.1) !important;
+}
+
+.delete-btn {
+    background: linear-gradient(45deg, #721c24, #9c2424) !important;
+    color: #fff !important;
+    margin-top: 25px;
+}
+
+.delete-btn:hover {
+    filter: brightness(1.2);
+}
+
+.history-box {
+    width: 100%;
+    min-height: 400px;
+    max-height: 55vh;
+    overflow-y: auto;
+    padding: 15px;
+    background: rgba(15, 15, 20, 0.5);
+    border: 1px solid rgba(255, 215, 0, 0.15);
+    border-radius: 12px;
+    box-sizing: border-box;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* History Poster Layout Frame */
+.history-card {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    background: #000;
+}
+
+.history-poster {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.history-poster img {
+    width: 100%;
+    height: auto;
+    min-height: 180px;
+    max-height: 250px;
+    object-fit: cover;
+    display: block;
+}
+
+/* Linear glass shielding layer inside loop items */
+.poster-overlay-gradient {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.9) 85%);
+    z-index: 1;
+}
+
+.history-card-text {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 15px;
+    z-index: 2;
+    text-align: left;
+}
+
+.history-card-text h3 {
+    font-family: 'Cinzel';
+    color: #ffd700;
+    font-size: 16px;
+    margin: 0 0 5px 0;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.history-card-text p {
+    color: #fff;
+    font-size: 12px;
+    margin: 0;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px #000;
+}
+
+.loading-text, .empty-msg {
+    color: #ffcc33;
+    font-family: 'Cinzel';
+    font-size: 13px;
+    margin: auto;
+    text-align: center;
+    padding: 40px 0;
+}

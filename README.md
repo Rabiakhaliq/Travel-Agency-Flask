@@ -3,7 +3,7 @@
 A full-stack web application designed to generate dynamic travel narratives based on user-inputted psychological parameters (mood, personality traits, and preferences). 
 
 ### 🚀 Live Deployment
-Check out the live running application here: **[PASTE YOUR PYTHONANYWHERE URL HERE]**
+Check out the live running application here: **[https://rabiakhaliq.pythonanywhere.com/]**
 
 ### 🛠️ Tech Stack & Architecture
 - **Backend:** Python, Flask Microframework
